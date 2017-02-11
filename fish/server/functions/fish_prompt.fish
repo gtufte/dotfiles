@@ -10,21 +10,17 @@ function fish_prompt
   set -l env_dev (hostname | grep 'dev')
   if [ "$env_prd" != "" ]
     set env_color D8000C
-    set env_color_at FFBABA
   else if [ "$env_stg" != "" ]
     set env_color FEEFB3
-    set env_color_at 9F6000
   else if [ "$env_dev" != "" ]
     set env_color BDE5F8
-    set env_color_at 00529B
   else
     set env_color D8000C
-    set env_color_at FFBABA
   end
 
   set_color $env_color
   echo -n "["(whoami)
-  set_color $env_color_at
+  set_color d3d3d3
   echo -n "@"
   set_color $env_color
   echo -n (hostname)" "
@@ -36,7 +32,7 @@ function fish_prompt
     set_color B0F06C
     echo -n (basename (pwd))
     if [ "$git_branch" != "" ]
-      set_color $env_color
+      set_color d3d3d3
       echo -n " | "
       if [ "$git_status" != "" ]
         set_color FC9071
