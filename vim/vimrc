@@ -1,0 +1,27 @@
+" Common settings
+set tabstop=4               " a tab is four spaces
+set shiftwidth=4            " number of spaces to use for autoindenting
+set expandtab
+set autoindent              " always set autoindenting on
+set copyindent              " copy the previous indentation on autoindenting
+set number                  " always show line numbers
+set hlsearch                " highlight search terms
+set incsearch               " show search matches as you type
+set t_Co=256
+let loaded_netrwPlugin = 1  " disable netrw
+
+" Settings derived from vim-sensible plugin
+set backspace=indent,eol,start
+set ruler
+set scrolloff=1
+set encoding=utf-8
+set autoread
+set history=1000
+
+" pathogen settings
+execute pathogen#infect()
+syntax on
+filetype plugin indent on
+colorscheme ron
+
+" For more settings, see ~/.vimrc/after/ (AfterColors)
