@@ -1,6 +1,6 @@
 vim/vim/autoload
 vim/vim/bundle
 fish/*/fish_history
-fish/fishd.*
-fish/functions/firefox*
+fish/*/fishd.*
+fish/*/functions/firefox*
 

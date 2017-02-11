@@ -5,11 +5,28 @@ function fish_prompt
   set -l git_uncommitedChanges (git status ^/dev/null | sed -n '/\Changes not staged for commit/s///p')
   set -l git_status (echo $git_untrackedFiles $git_unstagedCommits $git_uncommitedChanges)
 
-  set_color FF0033
+  set -l env_prd (hostname | grep 'prd\|prod')
+  set -l env_stg (hostname | grep 'stg\|beta')
+  set -l env_dev (hostname | grep 'dev')
+  if [ "$env_prd" != "" ]
+    set env_color D8000C
+    set env_color_at FFBABA
+  else if [ "$env_stg" != "" ]
+    set env_color FEEFB3
+    set env_color_at 9F6000
+  else if [ "$env_dev" != "" ]
+    set env_color BDE5F8
+    set env_color_at 00529B
+  else
+    set env_color D8000C
+    set env_color_at FFBABA
+  end
+
+  set_color $env_color
   echo -n "["(whoami)
-  set_color E3E3E3
+  set_color $env_color_at
   echo -n "@"
-  set_color FF0033
+  set_color $env_color
   echo -n (hostname)" "
   switch (pwd)
   case (echo $HOME)
@@ -19,7 +36,7 @@ function fish_prompt
     set_color B0F06C
     echo -n (basename (pwd))
     if [ "$git_branch" != "" ]
-      set_color 3DC7F8
+      set_color $env_color
       echo -n " | "
       if [ "$git_status" != "" ]
         set_color FC9071
@@ -29,6 +46,6 @@ function fish_prompt
       echo -n $git_branch
     end
   end
-  set_color 3DC7F8
+  set_color $env_color
   echo -n "]# "
 end
