@@ -9,7 +9,6 @@
   title_inactive_bg_color = "#FF9273"
   title_transmit_bg_color = "#C1FFC1"
 [keybindings]
-  copy = <Ctrl>C
   go_down = <Ctrl>Down
   go_left = <Ctrl>Left
   go_right = <Ctrl>Right
