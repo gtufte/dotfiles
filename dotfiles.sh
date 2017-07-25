@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 WORKDIR=$(pwd)
 HOMEDIR=$(cd && pwd)
