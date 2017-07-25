@@ -1,18 +1,25 @@
 # DotFiles
 
-#### Table of Contents
+A collection of my dotfiles where:
 
-1. [Description](#description)
-1. [Usage](#usage)
+* vim is the editor
+* fish is the shell
+* terminator is the terminal emulator
 
-## Description
+## PreReq
 
-This repo provides an easy way for me to deploy most of the environment stuff I need.
+Install these packges before you run the script:
 
-## Usage
+* vim
+* fish
+* terminator
+* git
+* curl
+
+## Install / Usage
 
 ```bash
-git clone git@github.com:gtufte/dotfiles.git
-sh dotfiles.sh
+git clone https://github.com/gtufte/dotfiles.git
+./dotfiles --help
 ```
 

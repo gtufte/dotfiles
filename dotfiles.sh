@@ -85,17 +85,17 @@ vim () {
         ln -s $PWD/vim/vimrc $HOME/.vimrc
     fi
 
-    mkdir -p vim/vim/{bundle,autoload}
+    mkdir -p vim/vim/autoload vim/vim/bundle
     if [ ! -f vim/vim/autoload/pathogen.vim ]; then
         printf "${COLOR_CYAN}Installing vim module ${COLOR_PURPLE}pathogen${COLOR_NONE}\n"
     else
         printf "${COLOR_CYAN}Updating vim module ${COLOR_PURPLE}pathogen${COLOR_NONE}\n"
     fi
-    curl -LSso vim/vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+    curl -LSs https://tpo.pe/pathogen.vim -o vim/vim/autoload/pathogen.vim
     if [ "$?" = 0 ]; then
         printf "DONE!\n"
     else
-        printf "${COLOR_RED}Something went wrong when updating vim module ${COLOR_PURPLE}pathogen"
+        printf "${COLOR_RED}Something went wrong when updating vim module ${COLOR_PURPLE}pathogen\n"
     fi
 
     if [ ! -d vim/vim/bundle/puppet ]; then
@@ -196,6 +196,9 @@ elif [ "$1" = "fish" ]; then
     exit 0
 elif [ "$1" = "terminator" ]; then
     terminator
+    exit 0
+elif [ "$1" = "--help" ]; then
+    usage
     exit 0
 else
     printf "\n${COLOR_RED}Argument '$1' not recognized!${COLOR_NONE}\n\n"
