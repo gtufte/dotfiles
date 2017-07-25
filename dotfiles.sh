@@ -1,14 +1,31 @@
 #!/usr/bin/env sh
 
-WORKDIR=$(pwd)
-HOMEDIR=$(cd && pwd)
+PWD=$(pwd)
+HOME=$(cd && pwd)
+COLOR_BLACK='\033[0;30m'
+COLOR_GRAY='\033[1;30m'
+COLOR_GRAY_LIGHT='\033[0;37m'
+COLOR_RED='\033[0;31m'
+COLOR_GREEN='\033[0;32m'
+COLOR_ORANGE='\033[0;33m'
+COLOR_YELLOW='\033[1;33m'
+COLOR_BLUE='\033[0;34m'
+COLOR_BLUE_LIGHT='\033[1;34m'
+COLOR_PURPLE='\033[0;35m'
+COLOR_PURPLE_LIGHT='\033[1;35m'
+COLOR_CYAN='\033[0;36m'
+COLOR_CYAN_LIGHT='\033[1;36m'
+COLOR_WHITE='\033[1;37m'
+COLOR_NONE='\033[0m'
 
 usage () {
+    printf "$COLOR_PURPLE_LIGHT"
     printf "\t      __ _ _            \n"
     printf "\t     / _(_) | ___  ___  \n"
     printf "\t    | |_| | |/ _ \/ __| \n"
     printf "\t _  |  _| | |  __/\__ \ \n"
     printf "\t(_) |_| |_|_|\___||___/ \n"
+    printf "$COLOR_NONE"
 
     printf "\nThe following arguments is accepted:\n"
     printf "\tinstall_desktop:........Install/update all desktop relevant dotfiles.\n"
@@ -29,18 +46,18 @@ install_server () {
 vim () {
 
     mkdir -p vim/vim
-    if [ -e $HOMEDIR/.vim ] && [ ! -L $HOMEDIR/.vim ]; then
-        mv -v $HOMEDIR/.vim $HOMEDIR/.vim.backup
-        ln -s $WORKDIR/vim/vim $HOMEDIR/.vim
-    elif [ ! -L $HOMEDIR/.vim ]; then
-        ln -s $WORKDIR/vim/vim $HOMEDIR/.vim
+    if [ -e $HOME/.vim ] && [ ! -L $HOME/.vim ]; then
+        mv -v $HOME/.vim $HOME/.vim.backup
+        ln -s $PWD/vim/vim $HOME/.vim
+    elif [ ! -L $HOME/.vim ]; then
+        ln -s $PWD/vim/vim $HOME/.vim
     fi
 
-    if [ -e $HOMEDIR/.vimrc ] && [ ! -L $HOMEDIR/.vimrc ]; then
-        mv $HOMEDIR/.vimrc $HOMEDIR/.vimrc.backup
-        ln -s $WORKDIR/vim/vimrc $HOMEDIR/.vimrc
-    elif [ ! -L $HOMEDIR/.vimrc ]; then
-        ln -s $WORKDIR/vim/vimrc $HOMEDIR/.vimrc
+    if [ -e $HOME/.vimrc ] && [ ! -L $HOME/.vimrc ]; then
+        mv $HOME/.vimrc $HOME/.vimrc.backup
+        ln -s $PWD/vim/vimrc $HOME/.vimrc
+    elif [ ! -L $HOME/.vimrc ]; then
+        ln -s $PWD/vim/vimrc $HOME/.vimrc
     fi
 
     mkdir -p vim/vim/{bundle,autoload}
@@ -83,33 +100,33 @@ vim () {
 
 fish () {
     # If the fish config directory is not a symlink
-    if [ ! -L $HOMEDIR/.config/fish ]; then
+    if [ ! -L $HOME/.config/fish ]; then
         # If the fish config directory exists
-        if [ -e $HOMEDIR/.config/fish ]; then
+        if [ -e $HOME/.config/fish ]; then
             # If there exists a fish history, copy into new environment
-            if [ -f $HOMEDIR/.config/fish/fish_history ]; then
-                cp $HOMEDIR/.config/fish/fish_history $WORKDIR/fish/$1/fish_history
+            if [ -f $HOME/.config/fish/fish_history ]; then
+                cp $HOME/.config/fish/fish_history $PWD/fish/$1/fish_history
             fi
             # Move the current fish directory
-            mv $HOMEDIR/.config/fish $HOMEDIR/.config/old_fish_config
+            mv $HOME/.config/fish $HOME/.config/old_fish_config
         fi
         # Create the .config directory if it doesn't exist
-        if [ ! -e $HOMEDIR/.config ]; then
-            mkdir -p $HOMEDIR/.config
+        if [ ! -e $HOME/.config ]; then
+            mkdir -p $HOME/.config
         fi
         # Create a symlink from dotfiles to fish config directory
-        ln -s $WORKDIR/fish/$1 $HOMEDIR/.config/fish
+        ln -s $PWD/fish/$1 $HOME/.config/fish
     fi
 }
 terminator () {
-    if [ ! -d $HOMEDIR/.config/terminator ]; then
-        mkdir -p $HOMEDIR/.config/terminator
+    if [ ! -d $HOME/.config/terminator ]; then
+        mkdir -p $HOME/.config/terminator
     fi
-    if [ -e $HOMEDIR/.config/terminator/config ] && [ ! -L $HOMEDIR/.config/terminator/config ]; then
-        mv $HOMEDIR/.config/terminator/config $HOMEDIR/.config/terminator/config.backup
-        ln -s $WORKDIR/terminator/config $HOMEDIR/.config/terminator/config
-    elif [ ! -L $HOMEDIR/.config/terminator/config ]; then
-        ln -s $WORKDIR/terminator/config $HOMEDIR/.config/terminator/config
+    if [ -e $HOME/.config/terminator/config ] && [ ! -L $HOME/.config/terminator/config ]; then
+        mv $HOME/.config/terminator/config $HOME/.config/terminator/config.backup
+        ln -s $PWD/terminator/config $HOME/.config/terminator/config
+    elif [ ! -L $HOME/.config/terminator/config ]; then
+        ln -s $PWD/terminator/config $HOME/.config/terminator/config
     fi
 }
 
