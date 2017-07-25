@@ -43,6 +43,22 @@ usage () {
     printf "\t\t${COLOR_NONE}Only terminator will be configured\n\n"
 }
 
+message() {
+    severity="${1}"
+    message="${2}"
+    if [ "$severity" = "WARNING" ]; then
+        color=${COLOR_ORANGE}
+    elif [ "$severity" = "ERROR" ]; then
+        color=${COLOR_RED}
+    else
+        color=${COLOR_GREEN}
+    fi
+    printf "$color"
+    printf "$severity\n"
+    printf "$message\n"
+    printf "$COLOR_NONE"
+}
+
 desktop () {
     vim
     fish desktop
