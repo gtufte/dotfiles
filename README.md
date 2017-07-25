@@ -20,6 +20,7 @@ Install these packges before you run the script:
 
 ```bash
 git clone https://github.com/gtufte/dotfiles.git
+cd dotfiles
 ./dotfiles --help
 ```
 
