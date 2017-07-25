@@ -2,6 +2,7 @@
 
 WORKDIR=$(pwd)
 HOMEDIR=$(cd && pwd)
+
 usage () {
     printf "\nThe following arguments is accepted:\n"
     printf "\tinstall_desktop:........Install/update all desktop relevant dotfiles.\n"
@@ -20,6 +21,7 @@ install_server () {
     fish server
 }
 vim () {
+
     mkdir -p vim/vim
     if [ -e $HOMEDIR/.vim ] && [ ! -L $HOMEDIR/.vim ]; then
         mv -v $HOMEDIR/.vim $HOMEDIR/.vim.backup
@@ -27,6 +29,7 @@ vim () {
     elif [ ! -L $HOMEDIR/.vim ]; then
         ln -s $WORKDIR/vim/vim $HOMEDIR/.vim
     fi
+
     if [ -e $HOMEDIR/.vimrc ] && [ ! -L $HOMEDIR/.vimrc ]; then
         mv $HOMEDIR/.vimrc $HOMEDIR/.vimrc.backup
         ln -s $WORKDIR/vim/vimrc $HOMEDIR/.vimrc
@@ -34,7 +37,7 @@ vim () {
         ln -s $WORKDIR/vim/vimrc $HOMEDIR/.vimrc
     fi
 
-    mkdir -p vim/vim/bundle vim/vim/autoload
+    mkdir -p vim/vim/{bundle,autoload}
 
     if [ ! -f vim/vim/autoload/pathogen.vim ]; then
         printf "Installing vim pathogen\n"
@@ -57,18 +60,18 @@ vim () {
         git -C vim/vim/bundle/tabular pull
     fi
 
-    if [ ! -d vim/vim/bundle/autocolors ];  then
-        git clone https://github.com/vim-scripts/AfterColors.vim.git vim/vim/bundle/autocolors
+    if [ ! -d vim/vim/bundle/aftercolors ];  then
+        git clone https://github.com/vim-scripts/AfterColors.vim.git vim/vim/bundle/aftercolors
     else
-        printf "Updating vim module 'autocolors'\n"
-        git -C vim/vim/bundle/autocolors pull
+        printf "Updating vim module 'aftercolors'\n"
+        git -C vim/vim/bundle/aftercolors pull
     fi
 
     if [ ! -d vim/vim/bundle/vim-indent-guides ];  then
-        git clone https://github.com/nathanaelkane/vim-indent-guides.git
+        git clone https://github.com/nathanaelkane/vim-indent-guides.git vim/vim/bundle/indent-guides
     else
         printf "Updating vim module 'vim-indent-guides'\n"
-        git -C vim/vim/bundle/vim-indent-guides pull
+        git -C vim/vim/bundle/indent-guides pull
     fi
 }
 
