@@ -154,6 +154,7 @@ fish () {
         fi
         # Create a symlink from dotfiles to fish config directory
         ln -s $PWD/fish/$1 $HOME/.config/fish
+        rsync -va $PWD/fish/common $HOME/.config/fish
     fi
 }
 terminator () {
