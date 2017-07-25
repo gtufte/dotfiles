@@ -4,6 +4,12 @@ WORKDIR=$(pwd)
 HOMEDIR=$(cd && pwd)
 
 usage () {
+    printf "\t      __ _ _            \n"
+    printf "\t     / _(_) | ___  ___  \n"
+    printf "\t    | |_| | |/ _ \/ __| \n"
+    printf "\t _  |  _| | |  __/\__ \ \n"
+    printf "\t(_) |_| |_|_|\___||___/ \n"
+
     printf "\nThe following arguments is accepted:\n"
     printf "\tinstall_desktop:........Install/update all desktop relevant dotfiles.\n"
     printf "\tinstall_server:.........Install/update all server relevant dotfiles.\n"
