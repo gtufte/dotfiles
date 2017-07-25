@@ -5,24 +5,16 @@ HOME=$(cd && pwd)
 
 tabs 4
 
-COLOR_BLACK='\033[0;30m'
-COLOR_GRAY='\033[1;30m'
-COLOR_GRAY_LIGHT='\033[0;37m'
 COLOR_RED='\033[0;31m'
 COLOR_GREEN='\033[1;32m'
 COLOR_ORANGE='\033[0;33m'
 COLOR_YELLOW='\033[1;33m'
-COLOR_BLUE='\033[0;34m'
-COLOR_BLUE_LIGHT='\033[1;34m'
-COLOR_PURPLE='\033[0;35m'
-COLOR_PURPLE_LIGHT='\033[1;35m'
+COLOR_PURPLE='\033[1;35m'
 COLOR_CYAN='\033[1;36m'
-COLOR_CYAN_LIGHT='\033[1;36m'
-COLOR_WHITE='\033[1;37m'
 COLOR_NONE='\033[0m'
 
 usage () {
-    printf "$COLOR_PURPLE_LIGHT"
+    printf "$COLOR_PURPLE"
     printf "\t\t\t      __ _ _            \n"
     printf "\t\t\t     / _(_) | ___  ___  \n"
     printf "\t\t\t    | |_| | |/ _ \/ __| \n"
@@ -50,13 +42,14 @@ message() {
         color=${COLOR_ORANGE}
     elif [ "$severity" = "ERROR" ]; then
         color=${COLOR_RED}
+    elif [ "$severity" = "INFO" ]; then
+        color=${COLOR_CYAN}
     else
         color=${COLOR_GREEN}
     fi
-    printf "$color"
-    printf "$severity\n"
-    printf "$message\n"
-    printf "$COLOR_NONE"
+    printf "${color}"
+    printf "${severity} - ${message}\n"
+    printf "${COLOR_NONE}"
 }
 
 desktop () {
@@ -73,7 +66,10 @@ server () {
 vim () {
 
     mkdir -p vim/vim
+
     if [ -e $HOME/.vim ] && [ ! -L $HOME/.vim ]; then
+        printf "${COLOR_YELLOW}Existing .vim directory found. Backing up current directory.${COLOR_NONE}"
+        printf "${COLOR_CYAN}$HOME/.vim moved to $HOME/.vim_old${COLOR_NONE}"
         mv -v $HOME/.vim $HOME/.vim.backup
         ln -s $PWD/vim/vim $HOME/.vim
     elif [ ! -L $HOME/.vim ]; then
@@ -81,6 +77,8 @@ vim () {
     fi
 
     if [ -e $HOME/.vimrc ] && [ ! -L $HOME/.vimrc ]; then
+        printf "${COLOR_YELLOW}Existing .vimrc file found. Backing up file.${COLOR_NONE}"
+        printf "${COLOR_CYAN}$HOME/.vimrc moved to $HOME/.vimrc_old${COLOR_NONE}"
         mv $HOME/.vimrc $HOME/.vimrc.backup
         ln -s $PWD/vim/vimrc $HOME/.vimrc
     elif [ ! -L $HOME/.vimrc ]; then
@@ -88,39 +86,47 @@ vim () {
     fi
 
     mkdir -p vim/vim/{bundle,autoload}
-
     if [ ! -f vim/vim/autoload/pathogen.vim ]; then
-        printf "Installing vim pathogen\n"
+        printf "${COLOR_CYAN}Installing vim module ${COLOR_PURPLE}pathogen${COLOR_NONE}\n"
     else
-        printf "Updating vim pathogen\n"
+        printf "${COLOR_CYAN}Updating vim module ${COLOR_PURPLE}pathogen${COLOR_NONE}\n"
     fi
     curl -LSso vim/vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+    if [ "$?" = 0 ]; then
+        printf "DONE!\n"
+    else
+        printf "${COLOR_RED}Something went wrong when updating vim module ${COLOR_PURPLE}pathogen"
+    fi
 
     if [ ! -d vim/vim/bundle/puppet ]; then
+        printf "${COLOR_CYAN}Downloading vim module ${COLOR_PURPLE}puppet${COLOR_NONE}\n"
         git clone https://github.com/rodjek/vim-puppet.git vim/vim/bundle/puppet
     else
-        printf "Updating vim moudule 'puppet'\n"
+        printf "${COLOR_CYAN}Updating vim module ${COLOR_PURPLE}puppet${COLOR_NONE}\n"
         git -C vim/vim/bundle/puppet pull
     fi
 
     if [ ! -d vim/vim/bundle/tabular ];  then
+        printf "${COLOR_CYAN}Downloading vim module ${COLOR_PURPLE}tabular${COLOR_NONE}\n"
         git clone https://github.com/godlygeek/tabular.git vim/vim/bundle/tabular
     else
-        printf "Updating vim module 'tabular'\n"
+        printf "${COLOR_CYAN}Updating vim module ${COLOR_PURPLE}tabular${COLOR_NONE}\n"
         git -C vim/vim/bundle/tabular pull
     fi
 
     if [ ! -d vim/vim/bundle/aftercolors ];  then
+        printf "${COLOR_CYAN}Downloading vim module ${COLOR_PURPLE}aftercolors${COLOR_NONE}\n"
         git clone https://github.com/vim-scripts/AfterColors.vim.git vim/vim/bundle/aftercolors
     else
-        printf "Updating vim module 'aftercolors'\n"
+        printf "${COLOR_CYAN}Updating vim module ${COLOR_PURPLE}aftercolors${COLOR_NONE}\n"
         git -C vim/vim/bundle/aftercolors pull
     fi
 
-    if [ ! -d vim/vim/bundle/vim-indent-guides ];  then
+    if [ ! -d vim/vim/bundle/indent-guides ];  then
+        printf "${COLOR_CYAN}Downloading vim module ${COLOR_PURPLE}indent-guides${COLOR_NONE}\n"
         git clone https://github.com/nathanaelkane/vim-indent-guides.git vim/vim/bundle/indent-guides
     else
-        printf "Updating vim module 'vim-indent-guides'\n"
+        printf "${COLOR_CYAN}Updating vim module ${COLOR_PURPLE}indent-guides${COLOR_NONE}\n"
         git -C vim/vim/bundle/indent-guides pull
     fi
 }
@@ -130,12 +136,17 @@ fish () {
     if [ ! -L $HOME/.config/fish ]; then
         # If the fish config directory exists
         if [ -e $HOME/.config/fish ]; then
+            printf "${COLOR_YELLOW}"
+            printf "Existing fish directory found. Backing up directory"
+            printf "${COLOR_NONE}"
+            mv -v $HOME/.config/fish $HOME/.config/fish_old
             # If there exists a fish history, copy into new environment
-            if [ -f $HOME/.config/fish/fish_history ]; then
+            if [ -f $HOME/.config/fish_old/fish_history ]; then
+                printf "${COLOR_CYAN}"
+                printf "\nFound existing fish_history. Reusing the history for this installation\n"
+                printf "${COLOR_NONE}"
                 cp $HOME/.config/fish/fish_history $PWD/fish/$1/fish_history
             fi
-            # Move the current fish directory
-            mv $HOME/.config/fish $HOME/.config/old_fish_config
         fi
         # Create the .config directory if it doesn't exist
         if [ ! -e $HOME/.config ]; then
@@ -150,7 +161,10 @@ terminator () {
         mkdir -p $HOME/.config/terminator
     fi
     if [ -e $HOME/.config/terminator/config ] && [ ! -L $HOME/.config/terminator/config ]; then
-        mv $HOME/.config/terminator/config $HOME/.config/terminator/config.backup
+        printf "${COLOR_YELLOW}"
+        printf "Existing terminator config found. Backing up config"
+        printf "${COLOR_NONE}"
+        mv -v $HOME/.config/terminator/config $HOME/.config/terminator/config_old
         ln -s $PWD/terminator/config $HOME/.config/terminator/config
     elif [ ! -L $HOME/.config/terminator/config ]; then
         ln -s $PWD/terminator/config $HOME/.config/terminator/config
@@ -159,7 +173,7 @@ terminator () {
 
 # Check for correct usage of the script
 if [ "$#" -gt 1 ]; then
-    printf "\nThis script only accepts one argument!\n"
+    printf "\n${COLOR_RED}This script only accepts one argument!${COLOR_NONE}\n\n"
     usage
     exit 2
 elif [ "$#" -eq 0 ]; then
@@ -184,7 +198,7 @@ elif [ "$1" = "terminator" ]; then
     terminator
     exit 0
 else
-    printf "\nThe argument '$1' is not a legal option\n"
+    printf "\n${COLOR_RED}Argument '$1' not recognized!${COLOR_NONE}\n\n"
     usage
     exit 2
 fi
