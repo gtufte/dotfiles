@@ -2,47 +2,69 @@
 
 PWD=$(pwd)
 HOME=$(cd && pwd)
+
+tabs 4
+
 COLOR_BLACK='\033[0;30m'
 COLOR_GRAY='\033[1;30m'
 COLOR_GRAY_LIGHT='\033[0;37m'
 COLOR_RED='\033[0;31m'
-COLOR_GREEN='\033[0;32m'
+COLOR_GREEN='\033[1;32m'
 COLOR_ORANGE='\033[0;33m'
 COLOR_YELLOW='\033[1;33m'
 COLOR_BLUE='\033[0;34m'
 COLOR_BLUE_LIGHT='\033[1;34m'
 COLOR_PURPLE='\033[0;35m'
 COLOR_PURPLE_LIGHT='\033[1;35m'
-COLOR_CYAN='\033[0;36m'
+COLOR_CYAN='\033[1;36m'
 COLOR_CYAN_LIGHT='\033[1;36m'
 COLOR_WHITE='\033[1;37m'
 COLOR_NONE='\033[0m'
 
 usage () {
     printf "$COLOR_PURPLE_LIGHT"
-    printf "\t      __ _ _            \n"
-    printf "\t     / _(_) | ___  ___  \n"
-    printf "\t    | |_| | |/ _ \/ __| \n"
-    printf "\t _  |  _| | |  __/\__ \ \n"
-    printf "\t(_) |_| |_|_|\___||___/ \n"
+    printf "\t\t\t      __ _ _            \n"
+    printf "\t\t\t     / _(_) | ___  ___  \n"
+    printf "\t\t\t    | |_| | |/ _ \/ __| \n"
+    printf "\t\t\t _  |  _| | |  __/\__ \ \n"
+    printf "\t\t\t(_) |_| |_|_|\___||___/ \n"
     printf "$COLOR_NONE"
 
-    printf "\nThe following arguments is accepted:\n"
-    printf "\tinstall_desktop:........Install/update all desktop relevant dotfiles.\n"
-    printf "\tinstall_server:.........Install/update all server relevant dotfiles.\n"
-    printf "\tvim:....................Install/update vim.\n"
-    printf "\tfish:...................Install/update fish.\n"
-    printf "\tterminator:.............Install/update terminator.\n\n"
+    printf "$COLOR_GREEN"
+    printf "\nRun this script in one of the following examples\n\n"
+    printf "$COLOR_CYAN"
+    printf "\t./dotfiles desktop\n"
+    printf "$COLOR_NONE"
+    printf "\t\tVim, fish and terminator will be configured\n"
+    printf "$COLOR_CYAN"
+    printf "\t./dotfiles server\n"
+    printf "$COLOR_NONE"
+    printf "\t\tVim and fish will be configured\n"
+    printf "$COLOR_CYAN"
+    printf "\t./dotfiles vim\n"
+    printf "$COLOR_NONE"
+    printf "\t\tOnly vim will be configured\n"
+    printf "$COLOR_CYAN"
+    printf "\t./dotfiles fish\n"
+    printf "$COLOR_NONE"
+    printf "\t\tOnly fish will be configured\n"
+    printf "$COLOR_CYAN"
+    printf "\t./dotfiles terminator\n"
+    printf "$COLOR_NONE"
+    printf "\t\tOnly terminator will be configured\n\n"
 }
-install_desktop () {
+
+desktop () {
     vim
     fish desktop
     terminator
 }
-install_server () {
+
+server () {
     vim
     fish server
 }
+
 vim () {
 
     mkdir -p vim/vim
