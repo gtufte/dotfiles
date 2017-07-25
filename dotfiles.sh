@@ -163,11 +163,11 @@ elif [ "$#" -eq 0 ]; then
 fi
 
 # Check input string and perform setup
-if [ "$1" = "install_desktop" ]; then
-    install_desktop
+if [ "$1" = "desktop" ]; then
+    desktop
     exit 0
-elif [ "$1" = "install_server" ]; then
-    install_server
+elif [ "$1" = "server" ]; then
+    server
     exit 0
 elif [ "$1" = "vim" ]; then
     vim
