@@ -5,6 +5,7 @@ A collection of my dotfiles where:
 * vim is the editor
 * fish is the shell
 * terminator is the terminal emulator
+* cinnamon is the desktop environment
 
 ## PreReq
 
@@ -15,6 +16,7 @@ Install these packges before you run the script:
 * terminator
 * git
 * curl
+* cinnamon
 
 ## Install / Usage
 

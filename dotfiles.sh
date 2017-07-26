@@ -32,7 +32,9 @@ usage () {
     printf "\t${COLOR_CYAN}./dotfiles fish\n"
     printf "\t\t${COLOR_NONE}Only fish will be configured\n"
     printf "\t${COLOR_CYAN}./dotfiles terminator\n"
-    printf "\t\t${COLOR_NONE}Only terminator will be configured\n\n"
+    printf "\t\t${COLOR_NONE}Only terminator will be configured\n"
+    printf "\t${COLOR_CYAN}./dotfiles cinnamon\n"
+    printf "\t\t${COLOR_NONE}Only cinnamon will be configured\n\n"
 }
 
 message() {
@@ -56,6 +58,7 @@ desktop () {
     vim
     fish desktop
     terminator
+    cinnamon
 }
 
 server () {
@@ -171,6 +174,9 @@ terminator () {
         ln -s $PWD/terminator/config $HOME/.config/terminator/config
     fi
 }
+cinnamon () {
+    dconf load /org/cinnamon/ < $PWD/cinnamon/config
+}
 
 # Check for correct usage of the script
 if [ "$#" -gt 1 ]; then
@@ -197,6 +203,9 @@ elif [ "$1" = "fish" ]; then
     exit 0
 elif [ "$1" = "terminator" ]; then
     terminator
+    exit 0
+elif [ "$1" = "cinnamon" ]; then
+    cinnamon
     exit 0
 elif [ "$1" = "--help" ]; then
     usage

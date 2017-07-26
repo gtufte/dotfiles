@@ -1,0 +1,44 @@
+[/]
+next-applet-id=15
+enabled-applets=['panel1:left:0:menu@cinnamon.org:0', 'panel1:left:3:window-list@cinnamon.org:3', 'panel1:right:0:notifications@cinnamon.org:4', 'panel1:right:1:user@cinnamon.org:5', 'panel1:right:2:removable-drives@cinnamon.org:6', 'panel1:right:3:keyboard@cinnamon.org:7', 'panel1:right:4:bluetooth@cinnamon.org:8', 'panel1:right:5:network@cinnamon.org:9', 'panel1:right:6:sound@cinnamon.org:10', 'panel1:right:7:power@cinnamon.org:11', 'panel1:right:8:systray@cinnamon.org:12', 'panel1:right:9:calendar@cinnamon.org:13', 'panel1:right:10:windows-quick-list@cinnamon.org:14']
+panel-edit-mode=false
+panels-enabled=['1:0:top']
+panel-launchers=['DEPRECATED']
+
+[settings-daemon/peripherals/keyboard]
+repeat-interval=uint32 30
+delay=uint32 500
+numlock-state='off'
+
+[desktop/keybindings/custom-keybindings/custom0]
+binding=['<Primary><Alt>t']
+command='terminator'
+name='terminator'
+
+[desktop/keybindings]
+custom-list=['custom0']
+
+[desktop/keybindings/media-keys]
+terminal=@as []
+www=['<Primary><Alt>w']
+
+[desktop/keybindings/wm]
+move-to-monitor-down=['<Shift><Alt>Down']
+move-to-monitor-right=['<Shift><Alt>Right']
+move-to-monitor-up=['<Shift><Alt>Up']
+toggle-fullscreen=@as []
+move-to-monitor-left=['<Shift><Alt>Left']
+
+[desktop/background]
+picture-uri='file:///usr/share/backgrounds/gnome/Waterfalls.jpg'
+picture-options='zoom'
+
+[desktop/background/slideshow]
+image-source='xml:///usr/share/gnome-background-properties/gnome-backgrounds.xml'
+delay=15
+
+[desktop/interface]
+cursor-blink-time=1200
+
+[desktop/sound]
+event-sounds=false
