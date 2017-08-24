@@ -24,9 +24,9 @@ usage () {
 
     printf "\n${COLOR_GREEN}Run this script in one of the following examples\n\n"
     printf "\t${COLOR_CYAN}./dotfiles desktop\n"
-    printf "\t\t${COLOR_NONE}Vim, fish and terminator will be configured\n"
+    printf "\t\t${COLOR_NONE}Vim, fish, terminator and cinnamon will be configured\n"
     printf "\t${COLOR_CYAN}./dotfiles server\n"
-    printf "\t\t${COLOR_NONE}Vim and fish will be configured\n"
+    printf "\t\t${COLOR_NONE}Vim and fish will be configured\n\n"
     printf "\t${COLOR_CYAN}./dotfiles vim\n"
     printf "\t\t${COLOR_NONE}Only vim will be configured\n"
     printf "\t${COLOR_CYAN}./dotfiles fish\n"
@@ -132,6 +132,14 @@ vim () {
         printf "${COLOR_CYAN}Updating vim module ${COLOR_PURPLE}indent-guides${COLOR_NONE}\n"
         git -C vim/vim/bundle/indent-guides pull
     fi
+
+    if [ ! -d vim/vim/bundle/yajs ];  then
+        printf "${COLOR_CYAN}Downloading vim module ${COLOR_PURPLE}yajs${COLOR_NONE}\n"
+        git clone https://github.com/othree/yajs.vim.git vim/vim/bundle/yajs
+    else
+        printf "${COLOR_CYAN}Updating vim module ${COLOR_PURPLE}yajs${COLOR_NONE}\n"
+        git -C vim/vim/bundle/yajs pull
+    fi
 }
 
 fish () {
@@ -150,7 +158,6 @@ fish () {
                 printf "${COLOR_NONE}"
                 cp $HOME/.config/fish/fish_history $PWD/fish/$1/fish_history
             fi
-        fi
         # Create the .config directory if it doesn't exist
         elif [ ! -e $HOME/.config ]; then
             mkdir -p $HOME/.config
