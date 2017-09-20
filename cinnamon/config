@@ -1,14 +1,42 @@
-[/]
-next-applet-id=15
-enabled-applets=['panel1:left:0:menu@cinnamon.org:0', 'panel1:left:3:window-list@cinnamon.org:3', 'panel1:right:0:notifications@cinnamon.org:4', 'panel1:right:1:user@cinnamon.org:5', 'panel1:right:2:removable-drives@cinnamon.org:6', 'panel1:right:3:keyboard@cinnamon.org:7', 'panel1:right:4:bluetooth@cinnamon.org:8', 'panel1:right:5:network@cinnamon.org:9', 'panel1:right:6:sound@cinnamon.org:10', 'panel1:right:7:power@cinnamon.org:11', 'panel1:right:8:systray@cinnamon.org:12', 'panel1:right:9:calendar@cinnamon.org:13', 'panel1:right:10:windows-quick-list@cinnamon.org:14']
-panel-edit-mode=false
-panels-enabled=['1:0:top']
-panel-launchers=['DEPRECATED']
+[settings-daemon/plugins/power]
+button-power='interactive'
+lid-close-suspend-with-external-monitor=false
+sleep-inactive-battery-timeout=0
+lid-close-ac-action='nothing'
+lid-close-battery-action='nothing'
+sleep-inactive-ac-timeout=0
+sleep-display-ac=900
+sleep-display-battery=900
 
 [settings-daemon/peripherals/keyboard]
 repeat-interval=uint32 30
 delay=uint32 500
 numlock-state='off'
+
+[/]
+panel-edit-mode=false
+enabled-applets=['panel1:left:0:menu@cinnamon.org:0', 'panel1:left:3:window-list@cinnamon.org:3', 'panel1:right:0:notifications@cinnamon.org:4', 'panel1:right:1:user@cinnamon.org:5', 'panel1:right:2:removable-drives@cinnamon.org:6', 'panel1:right:3:keyboard@cinnamon.org:7', 'panel1:right:4:bluetooth@cinnamon.org:8', 'panel1:right:5:network@cinnamon.org:9', 'panel1:right:6:sound@cinnamon.org:10', 'panel1:right:7:power@cinnamon.org:11', 'panel1:right:8:systray@cinnamon.org:12', 'panel1:right:9:calendar@cinnamon.org:13', 'panel1:right:10:windows-quick-list@cinnamon.org:14']
+workspace-osd-x=50
+workspace-osd-y=50
+next-applet-id=15
+panel-launchers=['DEPRECATED']
+enabled-desklets=@as []
+workspace-osd-duration=400
+panels-enabled=['1:0:top']
+
+[muffin]
+workspace-cycle=true
+
+[desktop/a11y/applications]
+screen-keyboard-enabled=false
+screen-reader-enabled=false
+
+[desktop/a11y/mouse]
+secondary-click-enabled=false
+secondary-click-time=1.2
+dwell-time=1.2
+dwell-threshold=10
+dwell-click-enabled=false
 
 [desktop/keybindings/custom-keybindings/custom0]
 binding=['<Primary><Alt>t']
@@ -19,8 +47,15 @@ name='terminator'
 custom-list=['custom0']
 
 [desktop/keybindings/media-keys]
+next=['XF86AudioNext', '<Super>F6']
+play=['XF86AudioPlay', '<Super>F11']
+volume-up=['XF86AudioRaiseVolume', '<Super>F3']
 terminal=@as []
+volume-down=['XF86AudioLowerVolume', '<Super>F2']
 www=['<Primary><Alt>w']
+pause=['XF86AudioPause', '<Super>F4']
+volume-mute=['XF86AudioMute', '<Super>F1']
+previous=['XF86AudioPrev', '<Super>F5']
 
 [desktop/keybindings/wm]
 move-to-monitor-down=['<Shift><Alt>Down']
@@ -39,6 +74,7 @@ delay=15
 
 [desktop/interface]
 cursor-blink-time=1200
+toolkit-accessibility=false
 
 [desktop/sound]
 event-sounds=false
