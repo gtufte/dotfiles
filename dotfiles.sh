@@ -133,13 +133,21 @@ vim () {
         git -C vim/vim/bundle/indent-guides pull
     fi
 
-    if [ ! -d vim/vim/bundle/yajs ];  then
-        printf "${COLOR_CYAN}Downloading vim module ${COLOR_PURPLE}yajs${COLOR_NONE}\n"
-        git clone https://github.com/othree/yajs.vim.git vim/vim/bundle/yajs
+    if [ ! -d vim/vim/bundle/prettier ];  then
+        printf "${COLOR_CYAN}Downloading vim module ${COLOR_PURPLE}prettier${COLOR_NONE}\n"
+        git clone https://github.com/prettier/vim-prettier.git vim/vim/bundle/prettier
     else
-        printf "${COLOR_CYAN}Updating vim module ${COLOR_PURPLE}yajs${COLOR_NONE}\n"
-        git -C vim/vim/bundle/yajs pull
+        printf "${COLOR_CYAN}Updating vim module ${COLOR_PURPLE}prettier${COLOR_NONE}\n"
+        git -C vim/vim/bundle/prettier pull
     fi
+
+#    if [ ! -d vim/vim/bundle/yajs ];  then
+#        printf "${COLOR_CYAN}Downloading vim module ${COLOR_PURPLE}yajs${COLOR_NONE}\n"
+#        git clone https://github.com/othree/yajs.vim.git vim/vim/bundle/yajs
+#    else
+#        printf "${COLOR_CYAN}Updating vim module ${COLOR_PURPLE}yajs${COLOR_NONE}\n"
+#        git -C vim/vim/bundle/yajs pull
+#    fi
 }
 
 fish () {
