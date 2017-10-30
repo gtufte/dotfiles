@@ -133,21 +133,14 @@ vim () {
         git -C vim/vim/bundle/indent-guides pull
     fi
 
-    if [ ! -d vim/vim/bundle/prettier ];  then
-        printf "${COLOR_CYAN}Downloading vim module ${COLOR_PURPLE}prettier${COLOR_NONE}\n"
-        git clone https://github.com/prettier/vim-prettier.git vim/vim/bundle/prettier
+    # Git wrapper
+    if [ ! -d vim/vim/bundle/fugitive ];  then
+        printf "${COLOR_CYAN}Downloading vim module ${COLOR_PURPLE}fugitive${COLOR_NONE}\n"
+        git clone https://github.com/tpope/vim-fugitive.git vim/vim/bundle/fugitive
     else
-        printf "${COLOR_CYAN}Updating vim module ${COLOR_PURPLE}prettier${COLOR_NONE}\n"
-        git -C vim/vim/bundle/prettier pull
+        printf "${COLOR_CYAN}Updating vim module ${COLOR_PURPLE}fugitive${COLOR_NONE}\n"
+        git -C vim/vim/bundle/fugitive pull
     fi
-
-#    if [ ! -d vim/vim/bundle/yajs ];  then
-#        printf "${COLOR_CYAN}Downloading vim module ${COLOR_PURPLE}yajs${COLOR_NONE}\n"
-#        git clone https://github.com/othree/yajs.vim.git vim/vim/bundle/yajs
-#    else
-#        printf "${COLOR_CYAN}Updating vim module ${COLOR_PURPLE}yajs${COLOR_NONE}\n"
-#        git -C vim/vim/bundle/yajs pull
-#    fi
 }
 
 fish () {
@@ -172,6 +165,10 @@ fish () {
         fi
         # Create a symlink from dotfiles to fish config directory
         ln -s $PWD/fish/$1 $HOME/.config/fish
+        for file in $(ls $PWD/fish/common); do
+            ln -s $PWD/fish/common/$file $HOME/.config/fish/$file
+        done
+        #rsync -va $PWD/fish/common/ $HOME/.config/fish/
     fi
 }
 terminator () {
