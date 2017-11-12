@@ -8,7 +8,7 @@ COLOR_PURPLE='\033[1;35m'
 COLOR_CYAN='\033[1;36m'
 COLOR_NONE='\033[0m'
 
-USER="${1}"
+USER=$SUDO_USER
 
 # Install standard packages
 declare -a PACKAGE_NAMES=(
@@ -52,7 +52,7 @@ fi
 printf "$COLOR_PURPLE"
 printf "\n*** Installing docker ***\n\n"
 printf "$COLOR_GREEN"
-if [ "$(command -v docker)" != "" ]; then
+if [ "$(command -v docker)" == "" ]; then
     apt-get update
     apt-get install -y \
         linux-image-extra-$(uname -r) \
