@@ -59,6 +59,7 @@ desktop () {
     fish desktop
     terminator
     cinnamon
+    puppet_hooks
 }
 
 server () {
@@ -198,6 +199,20 @@ elif [ "$#" -eq 0 ]; then
     usage
     exit 0
 fi
+
+puppet_hooks () {
+    tools_dir="${HOME}/code/tools"
+    mkdir -p $tools_dir
+    cd $tools_dir
+    if [ ! -d "$tools_dir/puppet-git-hooks" ]; then
+        printf "${COLOR_CYAN}Downloading ${COLOR_PURPLE}puppet-git-hooks${COLOR_NONE}\n"
+        git clone https://github.com/drwahl/puppet-git-hooks.git
+    else
+        cd $tools_dir/puppet-git-hooks
+        printf "${COLOR_CYAN}Updating ${COLOR_PURPLE}puppet-git-hooks${COLOR_NONE}\n"
+        git pull
+    fi
+}
 
 # Check input string and perform setup
 if [ "$1" = "desktop" ]; then

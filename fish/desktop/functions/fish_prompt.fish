@@ -1,9 +1,4 @@
 function fish_prompt
-    set -x http_proxy http://www-proxy.statoil.no:80
-    set -x https_proxy http://www-proxy.statoil.no:80
-    set -x HTTP_PROXY http://www-proxy.statoil.no:80
-    set -x HTTPS_PROXY http://www-proxy.statoil.no:80
-
     set -l git_branch (git branch ^/dev/null | sed -n '/\* /s///p')
     set -l git_untrackedFiles (git status ^/dev/null | sed -n '/\Untracked files/s///p')
     set -l git_unstagedCommits (git status ^/dev/null | sed -n '/\Changes to be committed/s///p')
