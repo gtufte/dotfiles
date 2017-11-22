@@ -37,28 +37,12 @@ usage () {
     printf "\t\t${COLOR_NONE}Only cinnamon will be configured\n\n"
 }
 
-message() {
-    severity="${1}"
-    message="${2}"
-    if [ "$severity" = "WARNING" ]; then
-        color=${COLOR_ORANGE}
-    elif [ "$severity" = "ERROR" ]; then
-        color=${COLOR_RED}
-    elif [ "$severity" = "INFO" ]; then
-        color=${COLOR_CYAN}
-    else
-        color=${COLOR_GREEN}
-    fi
-    printf "${color}"
-    printf "${severity} - ${message}\n"
-    printf "${COLOR_NONE}"
-}
-
 desktop () {
     vim
     fish desktop
     terminator
     cinnamon
+    rvm
     puppet_hooks
 }
 
@@ -190,6 +174,31 @@ cinnamon () {
     dconf load /org/cinnamon/ < $PWD/cinnamon/config
 }
 
+puppet_hooks () {
+    tools_dir="${HOME}/code/tools"
+    mkdir -p $tools_dir
+    cd $tools_dir
+    if [ ! -d "$tools_dir/puppet-git-hooks" ]; then
+        printf "${COLOR_CYAN}Downloading ${COLOR_PURPLE}puppet-git-hooks${COLOR_NONE}\n"
+        git clone https://github.com/gtufte/puppet-git-hooks.git
+    else
+        cd $tools_dir/puppet-git-hooks
+        printf "${COLOR_CYAN}Updating ${COLOR_PURPLE}puppet-git-hooks${COLOR_NONE}\n"
+        git pull
+    fi
+}
+
+rvm () {
+    if [ ! -d "$HOME/.rvm" ]; then
+        printf "${COLOR_CYAN}Downloading and installing ${COLOR_PURPLE}rvm${COLOR_NONE}\n"
+        gpg --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+        curl -sSL https://get.rvm.io | bash -s stable
+    else
+        printf "${COLOR_CYAN}Updating ${COLOR_PURPLE}rvm${COLOR_NONE}\n"
+        curl -sSL https://get.rvm.io | bash -s stable
+    fi
+}
+
 # Check for correct usage of the script
 if [ "$#" -gt 1 ]; then
     printf "\n${COLOR_RED}This script only accepts one argument!${COLOR_NONE}\n\n"
@@ -200,19 +209,6 @@ elif [ "$#" -eq 0 ]; then
     exit 0
 fi
 
-puppet_hooks () {
-    tools_dir="${HOME}/code/tools"
-    mkdir -p $tools_dir
-    cd $tools_dir
-    if [ ! -d "$tools_dir/puppet-git-hooks" ]; then
-        printf "${COLOR_CYAN}Downloading ${COLOR_PURPLE}puppet-git-hooks${COLOR_NONE}\n"
-        git clone https://github.com/drwahl/puppet-git-hooks.git
-    else
-        cd $tools_dir/puppet-git-hooks
-        printf "${COLOR_CYAN}Updating ${COLOR_PURPLE}puppet-git-hooks${COLOR_NONE}\n"
-        git pull
-    fi
-}
 
 # Check input string and perform setup
 if [ "$1" = "desktop" ]; then

@@ -20,6 +20,7 @@ declare -a PACKAGE_NAMES=(
   cinnamon
   fish
   telnet
+  gpgv2
 )
 printf "$COLOR_PURPLE"
 printf "\n*** Installing standard packages ***\n\n"
