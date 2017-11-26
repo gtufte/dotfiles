@@ -22,19 +22,10 @@ usage () {
     printf "\t\t\t(_) |_| |_|_|\___||___/ \n"
     printf "$COLOR_NONE"
 
-    printf "\n${COLOR_GREEN}Run this script in one of the following examples\n\n"
-    printf "\t${COLOR_CYAN}./dotfiles desktop\n"
-    printf "\t\t${COLOR_NONE}Vim, fish, terminator and cinnamon will be configured\n"
+    printf "\n\t${COLOR_CYAN}./dotfiles desktop\n"
+    printf "\t\t${COLOR_NONE}vim | fish | terminator | cinnamon | rvm | puppet-git-hooks\n"
     printf "\t${COLOR_CYAN}./dotfiles server\n"
-    printf "\t\t${COLOR_NONE}Vim and fish will be configured\n\n"
-    printf "\t${COLOR_CYAN}./dotfiles vim\n"
-    printf "\t\t${COLOR_NONE}Only vim will be configured\n"
-    printf "\t${COLOR_CYAN}./dotfiles fish\n"
-    printf "\t\t${COLOR_NONE}Only fish will be configured\n"
-    printf "\t${COLOR_CYAN}./dotfiles terminator\n"
-    printf "\t\t${COLOR_NONE}Only terminator will be configured\n"
-    printf "\t${COLOR_CYAN}./dotfiles cinnamon\n"
-    printf "\t\t${COLOR_NONE}Only cinnamon will be configured\n\n"
+    printf "\t\t${COLOR_NONE}vim | fish\n\n"
 }
 
 desktop () {
@@ -209,25 +200,12 @@ elif [ "$#" -eq 0 ]; then
     exit 0
 fi
 
-
 # Check input string and perform setup
 if [ "$1" = "desktop" ]; then
     desktop
     exit 0
 elif [ "$1" = "server" ]; then
     server
-    exit 0
-elif [ "$1" = "vim" ]; then
-    vim
-    exit 0
-elif [ "$1" = "fish" ]; then
-    fish
-    exit 0
-elif [ "$1" = "terminator" ]; then
-    terminator
-    exit 0
-elif [ "$1" = "cinnamon" ]; then
-    cinnamon
     exit 0
 elif [ "$1" = "--help" ]; then
     usage

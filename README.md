@@ -18,6 +18,8 @@ Install these packges before you run the script:
 * curl
 * cinnamon
 
+Or if on Ubuntu, fire of the init/ubuntu.sh script to install various software
+
 ## Install / Usage
 
 ```bash
