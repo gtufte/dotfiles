@@ -5,8 +5,10 @@ if [ ! -d ".git" ]; then
     exit 2
 fi
 if [ ! -d "manifests" ]; then
-    echo "Couldn't find the manifests folder, is this even a puppet repo? Aborting!"
-    exit 2
+    if [ ! -f "Puppetfile" ]; then
+        echo "Couldn't find the manifests folder nor any Puppetfile, is this even a puppet repo? Aborting!"
+        exit 2
+    fi
 fi
 if [ ! -d "$HOME/code/tools/puppet-git-hooks" ]; then
     echo "Seems like you didn't install the puppet-git-hooks repo? Aborting!"
