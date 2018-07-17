@@ -23,25 +23,22 @@ usage () {
     printf "$COLOR_NONE"
 
     printf "\n\t${COLOR_CYAN}./dotfiles desktop\n"
-    printf "\t\t${COLOR_NONE}vim | fish | terminator | cinnamon | rvm | puppet-git-hooks\n"
+    printf "\t\t${COLOR_NONE}vim | bash | terminator | cinnamon | rvm | puppet-git-hooks\n"
     printf "\t${COLOR_CYAN}./dotfiles server\n"
-    printf "\t\t${COLOR_NONE}vim | fish\n\n"
+    printf "\t\t${COLOR_NONE}vim | bash\n\n"
 }
 
 desktop () {
     vim
-    fish desktop
+    bash_setup
     terminator
     cinnamon
     rvm
-    puppet_hooks
 }
-
 server () {
     vim
-    fish server
+    bash_setup
 }
-
 vim () {
 
     mkdir -p vim/vim
@@ -118,34 +115,18 @@ vim () {
         git -C vim/vim/bundle/fugitive pull
     fi
 }
-
-fish () {
-    # If the fish config directory is not a symlink
-    if [ ! -L $HOME/.config/fish ]; then
-        # If the fish config directory exists
-        if [ -e $HOME/.config/fish ]; then
+bash_setup () {
+    for file in bashrc bash_aliases bash_prompt; do
+        if [ -e "$HOME/.${file}" ] && [ ! -L "$HOME/.${file}" ]; then
             printf "${COLOR_YELLOW}"
-            printf "Existing fish directory found. Backing up directory"
+            printf "Existing .${file} config found. Backing up config\n"
             printf "${COLOR_NONE}"
-            mv -v $HOME/.config/fish $HOME/.config/fish_old
-            # If there exists a fish history, copy into new environment
-            if [ -f $HOME/.config/fish_old/fish_history ]; then
-                printf "${COLOR_CYAN}"
-                printf "\nFound existing fish_history. Reusing the history for this installation\n"
-                printf "${COLOR_NONE}"
-                cp $HOME/.config/fish/fish_history $PWD/fish/$1/fish_history
-            fi
-        # Create the .config directory if it doesn't exist
-        elif [ ! -e $HOME/.config ]; then
-            mkdir -p $HOME/.config
+            mv -v "$HOME/.${file}" "$HOME/.${file}_old"
+            ln -s "$PWD/bash/${file}" "$HOME/.${file}"
+        elif [ ! -L "$HOME/.${file}" ]; then
+            ln -s "$PWD/bash/${file}" "$HOME/.${file}"
         fi
-        # Create a symlink from dotfiles to fish config directory
-        ln -s $PWD/fish/$1 $HOME/.config/fish
-        for file in $(ls $PWD/fish/common); do
-            ln -s $PWD/fish/common/$file $HOME/.config/fish/$file
-        done
-        #rsync -va $PWD/fish/common/ $HOME/.config/fish/
-    fi
+    done
 }
 terminator () {
     if [ ! -d $HOME/.config/terminator ]; then
@@ -164,21 +145,6 @@ terminator () {
 cinnamon () {
     dconf load /org/cinnamon/ < $PWD/cinnamon/config
 }
-
-puppet_hooks () {
-    tools_dir="${HOME}/code/tools"
-    mkdir -p $tools_dir
-    cd $tools_dir
-    if [ ! -d "$tools_dir/puppet-git-hooks" ]; then
-        printf "${COLOR_CYAN}Downloading ${COLOR_PURPLE}puppet-git-hooks${COLOR_NONE}\n"
-        git clone https://github.com/gtufte/puppet-git-hooks.git
-    else
-        cd $tools_dir/puppet-git-hooks
-        printf "${COLOR_CYAN}Updating ${COLOR_PURPLE}puppet-git-hooks${COLOR_NONE}\n"
-        git pull
-    fi
-}
-
 rvm () {
     if [ ! -d "$HOME/.rvm" ]; then
         printf "${COLOR_CYAN}Downloading and installing ${COLOR_PURPLE}rvm${COLOR_NONE}\n"

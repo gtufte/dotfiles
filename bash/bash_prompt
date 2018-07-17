@@ -1,0 +1,31 @@
+CYAN="\[\e[1;36m\]"
+GREEN="\[\e[1;32m\]"
+RED="\[\e[1;31m\]"
+VIOLET="\[\e[1;35m\]"
+RESET="\[\e[0m\]"
+
+function prompt {
+  local __standard_prompt="$CYAN\W$VIOLET"
+
+  git branch &> /dev/null
+  if [ "$?" = "0" ]; then
+      local __git_branch=$(git branch | sed -n '/\* /s///p')
+      local __git_untrackedFiles=$(git status | sed -n '/\Untracked files/s///p')
+      local __git_unstagedCommits=$(git status | sed -n '/\Changes to be committed/s///p')
+      local __git_uncommitedChanges=$(git status | sed -n '/\Changes not staged for commit/s///p')
+      local __git_status=$(echo $__git_untrackedFiles $__git_unstagedCommits $__git_uncommitedChanges)
+  fi
+
+  if [ "$__git_branch" != "" ]; then
+    if [ "$__git_status" != "" ]; then
+      local __git_prompt="$VIOLET | $RED$__git_branch"
+    else
+      local __git_prompt="$VIOLET | $GREEN$__git_branch"
+    fi
+  else
+    local __git_prompt=""
+  fi
+  PS1="$__standard_prompt$__git_prompt $VIOLET❯$RESET "
+}
+# configure PROMPT_COMMAND which is executed each time before PS1
+export PROMPT_COMMAND=prompt

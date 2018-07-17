@@ -1,1 +1,0 @@
-../../common/functions/fish_greeting.fish

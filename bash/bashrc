@@ -1,0 +1,25 @@
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+HISTCONTROL=ignoreboth
+HISTSIZE=10000
+HISTFILESIZE=10000
+shopt -s histappend
+shopt -s checkwinsize
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+if [ -f /etc/bash_completion ]; then
+   . /etc/bash_completion
+fi
+
+if [ -f ~/.bash_prompt ]; then
+   . ~/.bash_prompt
+fi
+
+export PATH="$PATH:$HOME/.rvm/bin"

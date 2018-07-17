@@ -18,7 +18,6 @@ declare -a PACKAGE_NAMES=(
   tmux
   vim
   cinnamon
-  fish
   telnet
   gpgv2
 )
