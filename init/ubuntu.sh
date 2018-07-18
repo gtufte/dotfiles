@@ -32,22 +32,6 @@ for package in "${PACKAGE_NAMES[@]}"; do
     fi
 done
 
-
-# Install Google Chrome
-printf "$COLOR_PURPLE"
-printf "\n*** Installing google-chrome ***\n\n"
-printf "$COLOR_GREEN"
-if [ "$(command -v google-chrome)" == "" ]; then
-    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-    echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | tee /etc/apt/sources.list.d/google-chrome.list
-    apt-get update
-    apt-get install -y google-chrome-stable
-else
-   echo "Google chrome already installed"
-fi
-
-
-
 # Install Docker CE (change != to == when docker is for artful)
 printf "$COLOR_PURPLE"
 printf "\n*** Installing docker ***\n\n"
@@ -89,7 +73,7 @@ printf "$COLOR_PURPLE"
 printf "\n*** Installing docker-compose ***\n\n"
 printf "$COLOR_GREEN"
 if [ "$(command -v docker-compose)" == "" ]; then
-    curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+    curl -L https://github.com/docker/compose/releases/download/1.21.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
     chmod +x /usr/local/bin/docker-compose
 else
    echo "Docker-compose already installed"
