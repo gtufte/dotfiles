@@ -116,7 +116,7 @@ vim () {
     fi
 }
 bash_setup () {
-    for file in bashrc bash_aliases bash_prompt; do
+    for file in bashrc bash_aliases bash_prompt inputrc; do
         if [ -e "$HOME/.${file}" ] && [ ! -L "$HOME/.${file}" ]; then
             printf "${COLOR_YELLOW}"
             printf "Existing .${file} config found. Backing up config\n"
