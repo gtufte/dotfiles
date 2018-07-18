@@ -1,6 +1,9 @@
 # .files
 
-A collection of my dotfiles, get started with:
+showcase:
+![terminator and bash setup](cli.png)
+
+usage:
 ```bash
 ./dotfiles --help
 ```
