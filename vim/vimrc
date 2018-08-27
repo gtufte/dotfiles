@@ -8,6 +8,8 @@ set number                  " always show line numbers
 set hlsearch                " highlight search terms
 set incsearch               " show search matches as you type
 set t_Co=256
+set smartcase
+set ignorecase
 let loaded_netrwPlugin = 1  " disable netrw
 
 " Settings derived from vim-sensible plugin
