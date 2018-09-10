@@ -12,7 +12,7 @@ alias la='ls -A'
 alias l='ls -CF'
 
 if [ "$(command -v nc)" != "" ]; then
-    alias telnet='nc -v -z $argv'
+    alias telnet='nc -v -z -w 5 $argv'
 elif [ "$(command -v ncat)" != ""]; then
     alias telnet='ncat -v --recv-only --idle-timeout 5s $argv'
 fi
