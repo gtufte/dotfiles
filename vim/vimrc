@@ -38,11 +38,3 @@ let g:indent_guides_auto_colors = 0
 " Set ctermbg to the color number you want
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=green   ctermbg=0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=8
-
-" Instead og creating a nw inode and create a new file
-" rather replace the existing file at its current inode
-" Ref: issues with docker volumes and changes in files not updated
-" https://github.com/moby/moby/issues/15793
-set noswapfile
-set backup
-set backupcopy=yes
