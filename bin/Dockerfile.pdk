@@ -1,0 +1,8 @@
+FROM ruby
+
+RUN gem install pdk
+
+RUN mkdir /validate
+WORKDIR /validate
+
+ENTRYPOINT ["pdk"]

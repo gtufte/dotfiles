@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
+
+if [ "$(command -v docker)" == "" ]; then
+    echo "Docker is not installed or not available in PATH"
+    exit 1
+elif [ "$(docker images --format '{{.Repository}}:{{.Tag}}' | grep "^pdk:latest$")" != "pdk:latest" ]; then
+    echo "PDK docker image not built. Building now"
+    sleep 2
+    docker build -t pdk:latest -f $SCRIPTPATH/Dockerfile.pdk $SCRIPTPATH
+elif [ "$1" == "build" ]; then
+    echo "Rebuilding PDK image"
+    sleep 2
+    docker build --no-cache -t pdk:latest -f $SCRIPTPATH/Dockerfile.pdk $SCRIPTPATH
+else
+    docker run -v $(pwd):/validate pdk:latest $@
+fi
+
