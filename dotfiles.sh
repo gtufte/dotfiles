@@ -33,7 +33,8 @@ desktop () {
     bash_setup
     terminator
     cinnamon
-    rvm
+    pdk
+#    rvm
 }
 server () {
     vim
@@ -144,6 +145,14 @@ terminator () {
 }
 cinnamon () {
     dconf load /org/cinnamon/ < $PWD/cinnamon/config
+}
+pdk () {
+    if [ ! -L "$HOME/bin/pdk" ]; then
+        ln -s $PWD/bin/pdk $HOME/bin/pdk
+    fi
+    if [ ! -L "$HOME/bin/Dockerfile.pdk" ]; then
+        ln -s $PWD/bin/Dockerfile.pdk $HOME/bin/Dockerfile.pdk
+    fi
 }
 rvm () {
     if [ ! -d "$HOME/.rvm" ]; then
