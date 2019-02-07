@@ -24,6 +24,8 @@ usage () {
 
     printf "\n\t${COLOR_CYAN}./dotfiles desktop\n"
     printf "\t\t${COLOR_NONE}vim | bash | terminator | cinnamon | rvm | puppet-git-hooks\n"
+    printf "\t${COLOR_CYAN}./dotfiles vim\n"
+    printf "\t\t${COLOR_NONE}vim\n"
     printf "\t${COLOR_CYAN}./dotfiles server\n"
     printf "\t\t${COLOR_NONE}vim | bash\n\n"
 }
@@ -178,6 +180,9 @@ fi
 # Check input string and perform setup
 if [ "$1" = "desktop" ]; then
     desktop
+    exit 0
+elif [ "$1" = "vim" ]; then
+    vim
     exit 0
 elif [ "$1" = "server" ]; then
     server

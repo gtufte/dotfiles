@@ -14,6 +14,6 @@ elif [ "$1" == "build" ]; then
     sleep 2
     docker build --no-cache -t pdk:latest -f $SCRIPTPATH/Dockerfile.pdk $SCRIPTPATH
 else
-    docker run -v $(pwd):/validate pdk:latest $@
+    docker run -v $(pwd):/validate pdk:latest pdk $@
 fi
 

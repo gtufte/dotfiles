@@ -11,6 +11,8 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+alias clip='xclip -selection clipboard'
+
 if [ "$(command -v nc)" != "" ]; then
     alias telnet='nc -v -z -w 5 $argv'
 elif [ "$(command -v ncat)" != ""]; then
