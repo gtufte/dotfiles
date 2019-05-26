@@ -73,7 +73,7 @@ printf "$COLOR_PURPLE"
 printf "\n*** Installing docker-compose ***\n\n"
 printf "$COLOR_GREEN"
 if [ "$(command -v docker-compose)" == "" ]; then
-    curl -L https://github.com/docker/compose/releases/download/1.21.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+    curl -L https://github.com/docker/compose/releases/download/1.24.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
     chmod +x /usr/local/bin/docker-compose
 else
    echo "Docker-compose already installed"
@@ -84,7 +84,7 @@ printf "$COLOR_PURPLE"
 printf "\n*** Installing Spotify ***\n\n"
 printf "$COLOR_GREEN"
 if [ "$(command -v spotify)" == "" ]; then
-    apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886 0DF731E45CE24F27EEEB1450EFDC8610341D9410
+    apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
     echo deb http://repository.spotify.com stable non-free | tee /etc/apt/sources.list.d/spotify.list
     apt-get update
     apt-get install -y spotify-client
