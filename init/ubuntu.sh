@@ -20,6 +20,7 @@ declare -a PACKAGE_NAMES=(
   cinnamon
   telnet
   gpgv2
+  tlp
 )
 printf "$COLOR_PURPLE"
 printf "\n*** Installing standard packages ***\n\n"
@@ -31,6 +32,12 @@ for package in "${PACKAGE_NAMES[@]}"; do
         echo "Package $package already installed"
     fi
 done
+
+printf "$COLOR_PURPLE"
+printf "\n*** Starting and enabling TLP ***\n\n"
+printf "$COLOR_GREEN"
+systemctl start tlp
+systemctl enable tlp
 
 # Install Docker CE (change != to == when docker is for artful)
 printf "$COLOR_PURPLE"
